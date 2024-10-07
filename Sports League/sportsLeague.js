@@ -42,14 +42,49 @@ games = [[0, 5, 1, 1],   // Team 0 - Team 5 => 1:1
 
 const sportsLeague = (numberOfTeams, arrGames) => {
     /* 
-        First I need to create the team object acording based in the numberOfTeams
+        First I need to create the team object acording with the numberOfTeams
     */
    const teams = [];
     for (let i = 0; i < numberOfTeams; i++) {
-
-        teams.push({})
+        teams.push({
+            points: 0,
+            goalsFor: 0,
+            goalsAgainst: 0,
+            goalsDifference: 0,
+        });
     }
+    // console.log(teams)
+
+    /* Get data from the array games to update the tems array object*/
+    for (const [teamA, teamB, teamAGoals, teamBGoals] of arrGames) {
+        // console.log(`Team ${teamA} played with Team ${teamB} teamA scored ${teamAGoals} and teamB scored ${teamBGoals}`)
+        if (teamAGoals > teamBGoals) {
+            teams[teamA].points += 2;
+        } else if (teamBGoals > teamAGoals) {
+            teams[teamB].points += 2;
+        } else {
+            teams[teamA].points += 1;
+            teams[teamB].points += 1;
+        }
+    
+        teams[teamA].goalsFor += teamAGoals;
+        teams[teamA].goalsAgainst += teamBGoals;
+
+        teams[teamB].goalsFor = teamBGoals;
+        teams[[teamB]].goalsAgainst = teamAGoals;
+
+        teams[teamA].goalsDifference = teams[teamA].goalsFor - teams[teamA].goalsAgainst
+        teams[teamB].goalsDifference = teams[teamB].goalsFor - teams[teamB].goalsAgainst
+
+    }
+
+    teams.sort((teamA, teamB) => {
+        if (teamB.points !== teamA.points) return teamB.points - teamA.points;
+        if (teamB.goalsDifference !== teamA.goalsDifference) return teamB.goalsDifference - teamA.goalsDifference;
+        if (teamB.goalsFor !== teamA.goalsFor) return teamB.goalsFor - teamA.goalsFor;
+    });
     console.log(teams)
+    
 
     /* 
       Order Criteria 
@@ -82,7 +117,7 @@ const games =
         [1, 2, 0, 0]
     ];
 
-sportsLeague(3, games);
+sportsLeague(6, games);
   
   
   
