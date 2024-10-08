@@ -47,10 +47,12 @@ const sportsLeague = (numberOfTeams, arrGames) => {
    const teams = [];
     for (let i = 0; i < numberOfTeams; i++) {
         teams.push({
+            teamId: i,
             points: 0,
             goalsFor: 0,
             goalsAgainst: 0,
             goalsDifference: 0,
+            tiebreaker: {}
         });
     }
     // console.log(teams)
@@ -78,12 +80,36 @@ const sportsLeague = (numberOfTeams, arrGames) => {
 
     }
 
+    /* Sort teams points, goals diference or goals for in descending order */
     teams.sort((teamA, teamB) => {
         if (teamB.points !== teamA.points) return teamB.points - teamA.points;
         if (teamB.goalsDifference !== teamA.goalsDifference) return teamB.goalsDifference - teamA.goalsDifference;
         if (teamB.goalsFor !== teamA.goalsFor) return teamB.goalsFor - teamA.goalsFor;
+
+            /* Tiebreaker */
+        const tiebreakerTeamA = teamA.tiebreaker[teamB.teamId];
+        const tiebreakerTeamB = teamB.tiebreaker[teamA.teamId];
+
+        const tiebreakerPointsA = tiebreaker.goalsFor > tiebreaker.goalsAgainst 
+        ? 2 
+        : tiebreakerTeamA.goalsFor < tiebreakerTeamA.goalsAgainst ? 0 : 1;
+
+        const tiebreakerPointsB  = tiebreakerTeamB.goalsFor > tiebreakerTeamB.goalsAgainst
+        ? 2
+        : tiebreakerTeamB.goalsFor < tiebreakerTeamB.goalsAgainst ? 0 : 1;
+
+        if (tiebreakerPointsB !== tiebreakerPointsA) return tiebreakerPointsB - tiebreakerPointsA;
+        if (tiebreakerPointsB.goalsFor - tiebreakerTeamB.goalsAgainst !== tiebreakerTeamA.goalsFor - tiebreakerTeamA.goalsAgainst) 
+            return (tiebreakerTeamB.goalsFor - tiebreakerTeamB.goalsAgainst) - (tiebreakerTeamA.goalsFor - tiebreakerTeamA.goalsAgainst);
+        return tiebreakerTeamB.goalsFor - tiebreakerTeamA.goalsFor;  
     });
-    console.log(teams)
+
+
+    const finalResult = [];
+    teams.forEach((team, i) => {
+        console.log(team)
+    })
+    // console.log(teams)
     
 
     /* 
