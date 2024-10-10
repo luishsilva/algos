@@ -83,21 +83,24 @@ const sportsLeague = (numberOfTeams, arrGames) => {
             teams[teamA].points += 1;
             teams[teamB].points += 1;
         }
-        console.log(teams[teamA].tiebreaker[teamB])
-        // if (!teamA.tiebreaker[teamB]) teamA.tiebreaker[teamB] = [0, 0, 0];
-        /* if (!teamB.tiebreaker[teamA]) teamB.tiebreaker[teamA] = [0, 0, 0];
-
-        // Need to update the tiebreaker considering points, goal diff, goal scored
-        teamA.tiebreaker[teamB][0] += teamAGoal > teamBGoal ? 2 : teamAGoal === teamBGoal ? 1 : 0;
-        teamB.tiebreaker[teamA][0] += teamBGoal > teamAGoal ? 2 : teamAGoal === teamBGoal ? 1 : 0;
+        // console.log(teams[teamA].tiebreaker[teamB])
+        if (!teams[teamA].tiebreaker[teamB]) teams[teamA].tiebreaker[teamB] = [0, 0, 0];
+        if (!teams[teamB].tiebreaker[teamA]) teams[teamB].tiebreaker[teamA] = [0, 0, 0];
         
-        teamA.tiebreaker[teamB][1] += teamAGoal - teamBGoal;
-        teamB.tiebreaker[teamA][1] += teamBGoal - teamAGoal;
 
-        teamA.tiebreaker[teamB][2] += teamAGoal;
-        teamB.tiebreaker[teamA][2] += teamBGoal; */
+        // Need to update the tiebreaker considering points
+        teams[teamA].tiebreaker[teamB][0] += teamAGoal > teamBGoal ? 2 : teamAGoal === teamBGoal ? 1 : 0;
+        teams[teamB].tiebreaker[teamA][0] += teamAGoal > teamBGoal ? 2 : teamAGoal === teamBGoal ? 1 : 0;
+        
+        //  goal diff
+        teams[teamA].tiebreaker[teamB][1] += teamAGoal - teamBGoal;
+        teams[teamB].tiebreaker[teamA][1] += teamBGoal - teamAGoal;
+
+        //goal scored
+        teams[teamA].tiebreaker[teamB][2] += teamAGoal;
+        teams[teamB].tiebreaker[teamA][2] += teamBGoal;
     }
-    // console.log(teams)
+    console.log(teams)
   }
   
 const games = [
