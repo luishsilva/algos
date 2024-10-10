@@ -57,74 +57,55 @@ const sportsLeague = (numberOfTeams, arrGames) => {
     }
     // console.log(teams)
 
-    /* Get data from the array games to update the tems array object*/
-    for (const [teamA, teamB, teamAGoals, teamBGoals] of arrGames) {
-        // console.log(`Team ${teamA} played with Team ${teamB} teamA scored ${teamAGoals} and teamB scored ${teamBGoals}`)
-        if (teamAGoals > teamBGoals) {
+    /* 
+        [0, 1, 2, 1], 
+        [0, 2, 0, 1], 
+    */
+    for (const [teamA, teamB, teamAGoal, teamBGoal] of arrGames) {
+        // Team A
+        teams[teamA].goalsFor += teamAGoal;
+        teams[teamA].goalsAgainst += teamBGoal; 
+        
+        // Team B
+        teams[teamB].goalsFor += teamBGoal;
+        teams[teamB].goalsAgainst += teamAGoal; 
+
+        // goal difference
+        teams[teamA].goalsDifference += teamAGoal - teamBGoal;
+        teams[teamB].goalsDifference += teamBGoal - teamAGoal;
+
+        // points
+        if (teamAGoal > teamBGoal) {
             teams[teamA].points += 2;
-        } else if (teamBGoals > teamAGoals) {
+        } else if (teamAGoal < teamBGoal) {
             teams[teamB].points += 2;
-        } else {
+        } else if (teamAGoal === teamBGoal) {
             teams[teamA].points += 1;
             teams[teamB].points += 1;
         }
-    
-        teams[teamA].goalsFor += teamAGoals;
-        teams[teamA].goalsAgainst += teamBGoals;
+        console.log(teams[teamA].tiebreaker[teamB])
+        // if (!teamA.tiebreaker[teamB]) teamA.tiebreaker[teamB] = [0, 0, 0];
+        /* if (!teamB.tiebreaker[teamA]) teamB.tiebreaker[teamA] = [0, 0, 0];
 
-        teams[teamB].goalsFor = teamBGoals;
-        teams[[teamB]].goalsAgainst = teamAGoals;
+        // Need to update the tiebreaker considering points, goal diff, goal scored
+        teamA.tiebreaker[teamB][0] += teamAGoal > teamBGoal ? 2 : teamAGoal === teamBGoal ? 1 : 0;
+        teamB.tiebreaker[teamA][0] += teamBGoal > teamAGoal ? 2 : teamAGoal === teamBGoal ? 1 : 0;
+        
+        teamA.tiebreaker[teamB][1] += teamAGoal - teamBGoal;
+        teamB.tiebreaker[teamA][1] += teamBGoal - teamAGoal;
 
-        teams[teamA].goalsDifference = teams[teamA].goalsFor - teams[teamA].goalsAgainst
-        teams[teamB].goalsDifference = teams[teamB].goalsFor - teams[teamB].goalsAgainst
-
+        teamA.tiebreaker[teamB][2] += teamAGoal;
+        teamB.tiebreaker[teamA][2] += teamBGoal; */
     }
-
-    /* Sort teams points, goals diference or goals for in descending order */
-    teams.sort((teamA, teamB) => {
-        if (teamB.points !== teamA.points) return teamB.points - teamA.points;
-        if (teamB.goalsDifference !== teamA.goalsDifference) return teamB.goalsDifference - teamA.goalsDifference;
-        if (teamB.goalsFor !== teamA.goalsFor) return teamB.goalsFor - teamA.goalsFor;
-
-            /* Tiebreaker */
-        const tiebreakerTeamA = teamA.tiebreaker[teamB.teamId];
-        const tiebreakerTeamB = teamB.tiebreaker[teamA.teamId];
-
-        const tiebreakerPointsA = tiebreaker.goalsFor > tiebreaker.goalsAgainst 
-        ? 2 
-        : tiebreakerTeamA.goalsFor < tiebreakerTeamA.goalsAgainst ? 0 : 1;
-
-        const tiebreakerPointsB  = tiebreakerTeamB.goalsFor > tiebreakerTeamB.goalsAgainst
-        ? 2
-        : tiebreakerTeamB.goalsFor < tiebreakerTeamB.goalsAgainst ? 0 : 1;
-
-        if (tiebreakerPointsB !== tiebreakerPointsA) return tiebreakerPointsB - tiebreakerPointsA;
-        if (tiebreakerPointsB.goalsFor - tiebreakerTeamB.goalsAgainst !== tiebreakerTeamA.goalsFor - tiebreakerTeamA.goalsAgainst) 
-            return (tiebreakerTeamB.goalsFor - tiebreakerTeamB.goalsAgainst) - (tiebreakerTeamA.goalsFor - tiebreakerTeamA.goalsAgainst);
-        return tiebreakerTeamB.goalsFor - tiebreakerTeamA.goalsFor;  
-    });
-
-
-    const finalResult = [];
-    teams.forEach((team, i) => {
-        console.log(team)
-    })
     // console.log(teams)
-    
-
-    /* 
-      Order Criteria 
-      1 - Points (goals scored - goals conceded)
-      2 - Scoring differential
-      3 - Goals scored
-      4  - Tiebreaker rule 'head-to-head' on these games.
-    */
-    // Discover how much point each tem has  
-    
-    // First you sort the teams by their points. 
   }
   
-const games = 
+const games = [
+    [0, 1, 2, 1], 
+    [0, 2, 1, 1],
+    [1, 2, 0, 1],
+]
+/* const games = 
     [
         [0, 5, 1, 1],   // Team 0 - Team 5 => 1:1
         [1, 4, 3, 1],   // Team 1 - Team 4 => 3:1
@@ -141,9 +122,9 @@ const games =
         [4, 5, 2, 0],   // Team 4 - Team 5 => 2:0
         [0, 3, 3, 2],   // Team 0 - Team 3 => 3:2
         [1, 2, 0, 0]
-    ];
+    ]; */
 
-sportsLeague(6, games);
+sportsLeague(3, games);
   
   
   
