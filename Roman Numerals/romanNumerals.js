@@ -66,7 +66,7 @@ Constraints:
 1 <= num <= 3999 */
 
 
-const romanNumerals = (num) => {
+/* const romanNumerals = (num) => {
     const romanArrValues = [
       { value: 1000, symbol: 'M' },
       { value: 900, symbol: 'CM' },
@@ -93,7 +93,6 @@ const romanNumerals = (num) => {
     
     for (let i = 0; i < romanArrValues.length; i++) {
        while (num >= romanArrValues[i].value) {
-         // console.log(`${num} ${romanArrValues[i].val}`);
          romanString += romanArrValues[i].symbol;
          num -= romanArrValues[i].value;
        }
@@ -103,7 +102,8 @@ const romanNumerals = (num) => {
   
   console.log(romanNumerals(3749));
   console.log(romanNumerals(58));
-  console.log(romanNumerals(1994));
+  console.log(romanNumerals(1994)); */
+
   
   
   
