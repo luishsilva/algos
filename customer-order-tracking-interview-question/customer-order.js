@@ -53,5 +53,11 @@ const totalExpenditureByCustomer = (customerOrders) => {
     return totalByCustomer;
 }
 
+const topFiveCustomers = (ordersByCustomer) => {
+    ordersByCustomer.sort((orderTotal1, orderTotal2) => orderTotal2.total_spent - orderTotal1.total_spent)
+    return ordersByCustomer.splice(0,5);
+}
+
 const orders = parseCSV(testCSV);
-totalExpenditureByCustomer(orders);
+const ordersByCustomer = totalExpenditureByCustomer(orders);
+topFiveCustomers(ordersByCustomer)
