@@ -17,6 +17,7 @@ ddf33d61-ef09-48e3-99e6-26bf53ccdb15,2411c86c-250d-41f7-9549-cf321c3d1dc7,2024-0
 cc539661-e4e8-4b2d-ada3-00de258f8d17,INVALID_ID,2024-02-11,1729ef73-5af8-4750-a118-076c34fd2a07,5,81.9
 706af248-493e-43d3-aa32-e2b6d0f11126,da8c66d3-b7f8-428d-aecc-e84aa33187d4,2024-02-14,3127f2f1-be1c-4814-ba00-4952214d8787,6,14.71
 706af248-493e-43d3-aa32-e2b6d0f11127,da8c66d3-b7f8-428d-aecc-e84aa33187d4,2024-02-14,3127f2f1-be1c-4814-ba00-4952214d8787,6,10.00
+706af248-493e-43d3-aa32-e2b6d0f11128,da8c66d3-b7f8-428d-aecc-e84aa33187d4,2024-02-14,3127f2f1-be1c-4814-ba00-4952214d8787,6,1.00
 8620602c-745b-4a18-b62e-efe48d6c94cf,6c5024ac-a252-4994-a6cc-12467b5cafe5,2024-07-17,5e4e1eee-f8f5-453b-901b-6ee6beec4bac,6,85.51`
 
 const parseCSV = (str) => {
@@ -66,7 +67,7 @@ const ordersByCustomer = totalExpenditureByCustomer(orders);
 topFiveCustomers(ordersByCustomer);
 
 /* Part 2 
-    1. Determine the customer who placed the highest number of orders**. If there is a tie, list all tied customers. 
+    2. Calculate the most popular product** (by number of units sold). Output the `product_id` and the total units sold.
 */
 customersHighestNumberOfOrders = (orders) => {
     const customerOrdersAmount = [];
@@ -86,3 +87,26 @@ customersHighestNumberOfOrders = (orders) => {
 }
 
 customersHighestNumberOfOrders(orders);
+
+/* Part 2 
+    2. Calculate the most popular product** (by number of units sold). Output the `product_id` and the total units sold.
+*/
+
+const mostPopularProduct = (orders) => {
+    const popularProduct = [];
+    for ( let i = 0; i < orders.length; i++) {
+        foundProduct = popularProduct.find(product => product.productId === orders[i][3]);
+        let units = parseFloat(orders[i][4]);
+        
+        if (foundProduct) {
+            foundProduct.totalUnits += units;
+        } else {
+            popularProduct.push({productId: orders[i][3], totalUnits: units});
+        }
+    }
+    return popularProduct
+        .sort((product1, product2) => product2.totalUnits - product1.totalUnits)
+        .filter(product => product.totalUnits === popularProduct[0].totalUnits);
+}
+
+mostPopularProduct(orders);
