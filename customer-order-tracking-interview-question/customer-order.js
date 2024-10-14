@@ -37,33 +37,33 @@ const orders = parseCSV(testCSV);
 // Part 1
 const totalExpenditureByCustomer = (customerOrders) => {
     // https://coreui.io/blog/how-to-round-a-number-to-two-decimal-places-in-javascript/#:~:text=1.-,Using%20toFixed()%20Method,the%20result%20as%20a%20string.&text=Note%3A%20Since%20toFixed()%20returns,necessary%20for%20further%20numerical%20operations.
-    const orders = [];
-    totalByCustomer = [];
+    const totalOrderByCustomer = [];
     for (let i = 0; i < customerOrders.length; i++) {
-        if (orders.includes(customerOrders[i][1])) {
-            const number = totalByCustomer[0].total_spent + (customerOrders[i][5] * customerOrders[i][4]);
-            const rounded = Math.round((number + Number.EPSILON) * 100) / 100;
-            totalByCustomer[0].total_spent = rounded;
+        const foundCustomer =  totalOrderByCustomer.find(customer => customer.customerId === customerOrders[i][1])
+
+        if (foundCustomer) {
+            const total = foundCustomer.totalSpent + (customerOrders[i][5] * customerOrders[i][4]);
+            foundCustomer.totalSpent = Math.round((total + Number.EPSILON) * 100) / 100;
         } else {
-            totalByCustomer.push(
+            totalOrderByCustomer.push(
                 {
-                    customer_id: customerOrders[i][1],
-                    total_spent: Math.round((customerOrders[i][5] * customerOrders[i][4] + Number.EPSILON) * 100) / 100
+                    customerId: customerOrders[i][1],
+                    totalSpent: Math.round((customerOrders[i][5] * customerOrders[i][4] + Number.EPSILON) * 100) / 100
                 }
             )
         }
-        orders.push(customerOrders[i][1]);
     }
-    return totalByCustomer;
+    return totalOrderByCustomer;
 }
 
 const topFiveCustomers = (ordersByCustomer) => {
-    ordersByCustomer.sort((orderTotal1, orderTotal2) => orderTotal2.total_spent - orderTotal1.total_spent)
+    if (!ordersByCustomer) return;
+    ordersByCustomer.sort((orderTotal1, orderTotal2) => orderTotal2.totalSpent - orderTotal1.totalSpent)
     return ordersByCustomer.splice(0,5);
 }
 
 const ordersByCustomer = totalExpenditureByCustomer(orders);
-topFiveCustomers(ordersByCustomer)
+topFiveCustomers(ordersByCustomer);
 
 /* Part 2 
     1. Determine the customer who placed the highest number of orders**. If there is a tie, list all tied customers. 
