@@ -157,18 +157,35 @@ totalRevenueMonth(orders);
 */
 
 const inactiveCustomers = (orders) => {
-    const dateInitial = new Date('2024-03-15');
-    const dateFinal = new Date();
+    const dateFinal = getMostCurrentOrderDate(orders);
 
-    const differenceInMonths = calculateDateMonthDifference(dateInitial, dateFinal);
-    console.log(differenceInMonths); 
+    const customers = [];
+    for (let i = 0; i < orders.length; i++) {
+        const dateInitial = new Date(orders[i][2]);
+        const differenceInMonths = calculateDateMonthDifference(dateInitial, dateFinal);
+        if (differenceInMonths > 6) {
+            customers.push({customerId: orders[i][1], yearMonth: orders[i][2]});
+        }
+    }
+
+    return customers;
 }
 
 // https://www.30secondsofcode.org/js/s/date-difference/
-const calculateDateMonthDifference = (dateInitial, dateFinal) => (
-     Math.max(
+const calculateDateMonthDifference = (dateInitial, dateFinal) => {
+     const monthDifference = Math.max(
         (dateFinal.getFullYear() - dateInitial.getFullYear()) * 12 + dateFinal.getMonth() - dateInitial.getMonth(), 0
-    )
-)
+    );
+    return monthDifference;
+}
+
+const getMostCurrentOrderDate = (orders) => {
+    const ordersDate = [];
+     for (let i = 0; i < orders.length; i++) {
+        ordersDate.push(new Date(orders[i][2]));
+     }
+     const maxDate = ordersDate.sort((date1, date2) => date2 - date1);
+     return maxDate[0];
+}
 
 inactiveCustomers(orders);
