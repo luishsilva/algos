@@ -26,9 +26,6 @@ const parseCSV = (str) => {
     const values = lines.map((row) => {
         return row.split(','); 
     });
-    6,14.71 =  88.26
-    6,10.00 = 148.26
-    6,1.00 = 6
     // Remove CSV file header
     values.shift();
 
@@ -154,3 +151,13 @@ const totalRevenueMonth = (orders) => {
 }
 
 totalRevenueMonth(orders);
+
+/* 
+    2. **Identify any customers who haven't placed an order in the last 6 months** (based on the most recent order date in the dataset). List their `customer_id` and the date of their last order. 
+*/
+
+const inactiveCustomers = (orders) => {
+    console.log(orders)
+}
+
+inactiveCustomers(orders);
