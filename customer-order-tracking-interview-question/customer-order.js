@@ -157,7 +157,18 @@ totalRevenueMonth(orders);
 */
 
 const inactiveCustomers = (orders) => {
-    console.log(orders)
+    const dateInitial = new Date('2024-03-15');
+    const dateFinal = new Date();
+
+    const differenceInMonths = calculateDateMonthDifference(dateInitial, dateFinal);
+    console.log(differenceInMonths); 
 }
+
+// https://www.30secondsofcode.org/js/s/date-difference/
+const calculateDateMonthDifference = (dateInitial, dateFinal) => (
+     Math.max(
+        (dateFinal.getFullYear() - dateInitial.getFullYear()) * 12 + dateFinal.getMonth() - dateInitial.getMonth(), 0
+    )
+)
 
 inactiveCustomers(orders);
