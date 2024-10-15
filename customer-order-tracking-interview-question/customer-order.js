@@ -26,7 +26,9 @@ const parseCSV = (str) => {
     const values = lines.map((row) => {
         return row.split(','); 
     });
-
+    6,14.71 =  88.26
+    6,10.00 = 148.26
+    6,1.00 = 6
     // Remove CSV file header
     values.shift();
 
@@ -110,3 +112,45 @@ const mostPopularProduct = (orders) => {
 }
 
 mostPopularProduct(orders);
+
+/* 
+    Part 3: Revenue Insights
+
+    1. **Calculate the total revenue generated for each month**. Your output should display the `year-month` (e.g., `2023-07`) and the corresponding `total_revenue`. 
+*/
+
+const totalRevenueMonth = (orders) => {
+    const ordersByDate = [];
+     for (let i = 0; i < orders.length; i++) {
+        const date = new Date(orders[i][2]);
+        let monthTwoDigits = String(date.getMonth() +1).padStart(2, '0');
+        let yearMonth = date.getFullYear()+'-'+monthTwoDigits;
+        let orderTotal = (orders[i][5] * orders[i][4]);
+        total = Math.round((orderTotal + Number.EPSILON) * 100) / 100;
+        ordersByDate.push(
+            {
+                yearMonth: yearMonth, 
+                total: total
+            }
+        );
+     }
+     
+    // https://dev.to/marinamosti/removing-duplicates-in-an-array-of-objects-in-js-with-sets-3fep
+    //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map
+    const orderWithUniqueDates = [...new Map(ordersByDate.map(item => [item.yearMonth, item])).values()];
+
+    const totalMonthRevenue = [];
+    for (order of orderWithUniqueDates) {
+        let monthYearTotal = ordersByDate
+        .filter((item) => item.yearMonth === order.yearMonth)
+        .reduce((accumulator, value) => Math.round(((accumulator + value.total) + Number.EPSILON) * 100) / 100, 0)
+
+        totalMonthRevenue.push({yearMonth: order.yearMonth, totalRevenue: monthYearTotal})
+    }
+
+    return totalMonthRevenue.sort((month1, month2) => Number(month2.yearMonth.replace("-", "")) - Number(month1.yearMonth.replace("-", "")));
+    
+
+}
+
+totalRevenueMonth(orders);
