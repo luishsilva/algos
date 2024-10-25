@@ -61,36 +61,36 @@ const sportsLeague = (numberOfTeams, arrGames) => {
         [0, 1, 2, 1], 
         [0, 2, 0, 1], 
     */
-        for (const [teamA, teamB, teamAGoal, teamBGoal] of arrGames) {
-            teams[teamA].goalsFor += teamAGoal;
-            teams[teamA].goalsAgainst += teamBGoal;
-            teams[teamB].goalsFor += teamBGoal;
-            teams[teamB].goalsAgainst += teamAGoal;
-    
-            teams[teamA].goalsDifference += teamAGoal - teamBGoal;
-            teams[teamB].goalsDifference += teamBGoal - teamAGoal;
-    
-            if (teamAGoal > teamBGoal) {
-                teams[teamA].points += 2;
-            } else if (teamAGoal < teamBGoal) {
-                teams[teamB].points += 2;
-            } else {
-                teams[teamA].points += 1;
-                teams[teamB].points += 1;
-            }
-    
-            if (!teams[teamA].tiebreaker[teamB]) teams[teamA].tiebreaker[teamB] = [0, 0, 0];
-            if (!teams[teamB].tiebreaker[teamA]) teams[teamB].tiebreaker[teamA] = [0, 0, 0];
-    
-            teams[teamA].tiebreaker[teamB][0] += teamAGoal > teamBGoal ? 2 : teamAGoal === teamBGoal ? 1 : 0;
-            teams[teamB].tiebreaker[teamA][0] += teamBGoal > teamAGoal ? 2 : teamAGoal === teamBGoal ? 1 : 0;
-    
-            teams[teamA].tiebreaker[teamB][1] += teamAGoal - teamBGoal;
-            teams[teamB].tiebreaker[teamA][1] += teamBGoal - teamAGoal;
-    
-            teams[teamA].tiebreaker[teamB][2] += teamAGoal;
-            teams[teamB].tiebreaker[teamA][2] += teamBGoal;
+    for (const [teamA, teamB, teamAGoal, teamBGoal] of arrGames) {
+        teams[teamA].goalsFor += teamAGoal;
+        teams[teamA].goalsAgainst += teamBGoal;
+        teams[teamB].goalsFor += teamBGoal;
+        teams[teamB].goalsAgainst += teamAGoal;
+
+        teams[teamA].goalsDifference += teamAGoal - teamBGoal;
+        teams[teamB].goalsDifference += teamBGoal - teamAGoal;
+
+        if (teamAGoal > teamBGoal) {
+            teams[teamA].points += 2;
+        } else if (teamAGoal < teamBGoal) {
+            teams[teamB].points += 2;
+        } else {
+            teams[teamA].points += 1;
+            teams[teamB].points += 1;
         }
+
+        if (!teams[teamA].tiebreaker[teamB]) teams[teamA].tiebreaker[teamB] = [0, 0, 0];
+        if (!teams[teamB].tiebreaker[teamA]) teams[teamB].tiebreaker[teamA] = [0, 0, 0];
+
+        teams[teamA].tiebreaker[teamB][0] += teamAGoal > teamBGoal ? 2 : teamAGoal === teamBGoal ? 1 : 0;
+        teams[teamB].tiebreaker[teamA][0] += teamBGoal > teamAGoal ? 2 : teamAGoal === teamBGoal ? 1 : 0;
+
+        teams[teamA].tiebreaker[teamB][1] += teamAGoal - teamBGoal;
+        teams[teamB].tiebreaker[teamA][1] += teamBGoal - teamAGoal;
+
+        teams[teamA].tiebreaker[teamB][2] += teamAGoal;
+        teams[teamB].tiebreaker[teamA][2] += teamBGoal;
+    }
 
     teams.sort((teamA, teamB) => {
         if (teamA.points !== teamB.points) return teamB.points - teamA.points;
@@ -99,41 +99,7 @@ const sportsLeague = (numberOfTeams, arrGames) => {
         return 0;
     });
 
-    let positions = Array(numberOfTeams);
-
-    let i = 0;
-    while (i < teams.length) {
-        let group = [teams[i]];
-        i++;
-
-        while (
-            i < teams.length &&
-            teams[i].points === group[0].points &&
-            teams[i].goalsDifference === group[0].goalsDifference &&
-            teams[i].goalsFor === group[0].goalsFor
-        ) {
-            group.push(teams[i]);
-            i++;
-        }
-
-        // Handle head-to-head tiebreaker
-        if (group.length > 1) {
-            group.sort((teamA, teamB) => {
-                let tiebreakerPoints = teamA.tiebreaker[teamB.teamId][0] - teamB.tiebreaker[teamA.teamId][0];
-                if (tiebreakerPoints !== 0) return tiebreakerPoints;
-
-                let tiebreakerGoalDifference = teamA.tiebreaker[teamB.teamId][1] - teamB.tiebreaker[teamA.teamId][1];
-                if (tiebreakerGoalDifference !== 0) return tiebreakerGoalDifference;
-
-                return teamA.tiebreaker[teamB.teamId][2] - teamB.tiebreaker[teamA.teamId][2];
-            });
-        }
-
-        group.forEach((team, index) => {
-            positions[team.teamId] = i - group.length + index + 1;
-        });
-    }
-    console.log(positions)
+    console.log(teams)
   }
   
 /* const games = [
