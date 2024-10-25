@@ -52,9 +52,11 @@ const weightForNumber = (stringNumbers) => {
         }
         numberWeights.push({originalNumber: numbers[i], weight: sumOfNumbers});
     }
-    numberWeights.sort((firstElement, secondElement) => firstElement.weight - secondElement.weight)
-    console.log(numberWeights)
-    
+
+    numberWeights.sort((firstElement, secondElement) => firstElement.weight - secondElement.weight);
+    let result = '';
+    numberWeights.forEach((number) => result += ' '+number.originalNumber);
+    return result;
 }
 
-weightForNumber('56 65 74 100 99 68 86 180 90') // output 100 180 90 56 65 74 68 86 99
+console.log(weightForNumber('56 65 74 100 99 68 86 180 90')) // output 100 180 90 56 65 74 68 86 99
