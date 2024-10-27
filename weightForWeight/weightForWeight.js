@@ -24,17 +24,17 @@ For C: The result is freed.
 
 Input: string containing numbers separated by white spaces ex: (56 65 74 100 99 68 86 180 90) all numbers are positive numbers
 
-Output:
+Output: "100 180 90 56 65 74 68 86 99"
 
 Edge cases:
     if 2 numbers have the same weight ex: 180 which is 9 and 90 which is also 9 it comes before as a string (alphabetical ordering)
     The list can be empty
-    check for spaces between
+    check for white spaces
 
 Test:
     99  = 9+9 = 18
     100 = 1+0+0 = 1
-    ""  = ""
+    ""  = "" ignore
  */
 
 // create a object with original number and the weight of this number
@@ -53,10 +53,13 @@ const weightForNumber = (stringNumbers) => {
         numberWeights.push({originalNumber: numbers[i], weight: sumOfNumbers});
     }
 
-    numberWeights.sort((firstElement, secondElement) => firstElement.weight - secondElement.weight);
-    let result = '';
-    numberWeights.forEach((number) => result += ' '+number.originalNumber);
-    return result;
+    return numberWeights
+        .sort((firstElement, secondElement) => firstElement.weight - secondElement.weight)
+        .join();
+    // let result = '';
+    // numberWeights.forEach((number) => result += ' '+number.originalNumber);
+    // return result;
+
 }
 
 console.log(weightForNumber('56 65 74 100 99 68 86 180 90')) // output 100 180 90 56 65 74 68 86 99
