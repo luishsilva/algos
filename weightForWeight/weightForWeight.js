@@ -34,7 +34,7 @@ Edge cases:
 Test:
     99  = 9+9 = 18
     100 = 1+0+0 = 1
-    ""  = "" ignore
+    ""  = ignore
  */
 
 // create a object with original number and the weight of this number
@@ -42,9 +42,12 @@ Test:
 // add the weight to each number
 // sum each sequence of numbers and add the weight for each sequence of number
 
-const numberWeights = [];
-const weightForNumber = (stringNumbers) => {
-    const numbers = stringNumbers.split(' ');
+const weightForNumber = (string) => {
+    if (!string.trim()) return 'Empty list';
+
+    const numberWeights = [];
+    const numbers = string.split(' ');
+    
     for (let i = 0; i < numbers.length; i++) {
         let sumOfNumbers = 0;
         for (const number of numbers[i]) {
@@ -53,13 +56,16 @@ const weightForNumber = (stringNumbers) => {
         numberWeights.push({originalNumber: numbers[i], weight: sumOfNumbers});
     }
 
-    return numberWeights
-        .sort((firstElement, secondElement) => firstElement.weight - secondElement.weight)
-        .join();
-    // let result = '';
-    // numberWeights.forEach((number) => result += ' '+number.originalNumber);
-    // return result;
-
+    const result =  numberWeights
+        .sort((firstElement, secondElement) => firstElement.weight - secondElement.weight || firstElement.originalNumber.localeCompare(secondElement.originalNumber))
+        .map((value) => value.originalNumber)
+        .join(' '); 
+        
+    
+    return result;
 }
 
-console.log(weightForNumber('56 65 74 100 99 68 86 180 90')) // output 100 180 90 56 65 74 68 86 99
+console.log(weightForNumber('2000 10003 1234000 44444444 9999 11 11 22 123')); // output 11 11 2000 10003 22 123 1234000 44444444 9999
+console.log(weightForNumber('56 74 100 99 68 86 180 90 65')) // output 100 180 90 56 65 74 68 86 99
+console.log(weightForNumber('75 80 57 71')) // 14,  8, 17 => 80 75 58 
+console.log(weightForNumber('      ')) // Empty list
