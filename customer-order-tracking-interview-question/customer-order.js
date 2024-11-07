@@ -2,6 +2,7 @@ const fs = require('fs');
 
 const readCSVFile = () => {
     try {
+        // https://nodejs.org/api/fs.html#fsreadfilesyncpath-options
         const csvData = fs.readFileSync('orders.csv', 'utf8');
         return csvData;
     } catch (error) {
