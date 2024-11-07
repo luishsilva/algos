@@ -12,4 +12,4 @@ const fibonacci = (number) => {
       // console.log(number)
     return fibonacci(number -1) + fibonacci(number - 2)
   }
-  console.log(fibonacci(2))
+  console.log(fibonacci(3))
