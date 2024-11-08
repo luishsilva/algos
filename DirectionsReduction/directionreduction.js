@@ -71,7 +71,7 @@ Example:
 const dirReduc = (arr) => {
     let index = 0;
     let arrLength = arr.length;
-
+    
     while (index < arrLength) {
         const nextIndex = index + 1;
         if (arr[index] === 'NORTH' && arr[nextIndex] === 'SOUTH' || arr[index] === 'SOUTH' && arr[nextIndex] === 'NORTH' 
