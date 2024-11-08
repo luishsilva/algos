@@ -74,4 +74,4 @@ presents = [
     {size: "small", clatters: "yes", weight: "light"}
 ];
 
-console.log(guessGift(wishlist, presents))
+console.log(guessGift(wishlist, presents));
