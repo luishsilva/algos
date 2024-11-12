@@ -19,15 +19,21 @@
 
 
 
-const rotateArray = (arr, num) => {
-    for (let i = 0; i < num; i++) {
-        arr.unshift(arr.pop());
+const rotateArray = (arr, k) => {
+    const n = arr.length;
+    if(n === 0) return arr; // if array is empty no rotation needed
+
+    k = k % n;
+    // dealing with negative numbers
+    if (k < 0) {
+        k += n;
     }
-    return arr;
+
+    return [...arr.slice(n - k), ...arr.slice(0, n - k)];
 }
 
-arr = [1,2,3,4];
+arr = [1, 2, 3, 4, 5];
 
-console.log(rotateArray(arr, 1));
-console.log(rotateArray(arr, 2));
-console.log(rotateArray(arr, 3));
+console.log(rotateArray(arr, 1)); // [ 4, 1, 2, 3 ]
+console.log(rotateArray(arr, 2)); // [ 2, 3, 4, 1 ]
+console.log(rotateArray(arr, 3)); // [ 3, 4, 1, 2 ]
