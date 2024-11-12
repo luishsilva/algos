@@ -34,6 +34,6 @@ const rotateArray = (arr, k) => {
 
 arr = [1, 2, 3, 4, 5];
 
-console.log(rotateArray(arr, 1)); // [ 4, 1, 2, 3 ]
-console.log(rotateArray(arr, 2)); // [ 2, 3, 4, 1 ]
-console.log(rotateArray(arr, 3)); // [ 3, 4, 1, 2 ]
+console.log(rotateArray(arr, 1)); // [ 5, 1, 2, 3, 4 ]
+console.log(rotateArray(arr, 2)); // [ 4, 5, 1, 2, 3 ]
+console.log(rotateArray(arr, 3)); // [ 3, 4, 5, 1, 2 ]
