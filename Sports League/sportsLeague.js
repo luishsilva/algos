@@ -55,19 +55,14 @@ const sportsLeague = (numberOfTeams, arrGames) => {
             tiebreaker: {}
         });
     }
-    // console.log(teams)
 
-    /* 
-        [0, 1, 2, 1], 
-        [0, 2, 0, 1], 
-    */
     for (const [teamA, teamB, teamAGoal, teamBGoal] of arrGames) {
         teams[teamA].goalsFor += teamAGoal;
         teams[teamA].goalsAgainst += teamBGoal;
+        teams[teamA].goalsDifference += teamAGoal - teamBGoal;
+
         teams[teamB].goalsFor += teamBGoal;
         teams[teamB].goalsAgainst += teamAGoal;
-
-        teams[teamA].goalsDifference += teamAGoal - teamBGoal;
         teams[teamB].goalsDifference += teamBGoal - teamAGoal;
 
         if (teamAGoal > teamBGoal) {
@@ -96,34 +91,32 @@ const sportsLeague = (numberOfTeams, arrGames) => {
         if (teamA.points !== teamB.points) return teamB.points - teamA.points;
         if (teamA.goalsDifference !== teamB.goalsDifference) return teamB.goalsDifference - teamA.goalsDifference;
         if (teamA.goalsFor !== teamB.goalsFor) return teamB.goalsFor - teamA.goalsFor;
+
+        const headToHeadA = teamA.tiebreaker[teamB];
+        const headToHeadB = teamB.tiebreaker[teamA];
+        if (headToHeadA && headToHeadB) {
+            if (headToHeadA[0] !== headToHeadB[0]) return headToHeadB[0] - headToHeadA[0];
+            if (headToHeadA[1] !== headToHeadB[1]) return headToHeadB[1] - headToHeadA[1];
+            if (headToHeadA[2] !== headToHeadB[2]) return headToHeadB[2] - headToHeadA[2];
+        }
+
         return 0;
     });
-
-    console.log(teams)
+    const ranking = teams.map(team => team.teamId + 1);
+    console.log(ranking);
+    return ranking;
+    ;
   }
   
-/* const games = [
-    [0, 1, 2, 1], 
-    [0, 2, 1, 1],
-    [1, 2, 0, 1],
-] */
-const games = 
-    [
-        [0, 5, 1, 1],   // Team 0 - Team 5 => 1:1
-        [1, 4, 3, 1],   // Team 1 - Team 4 => 3:1
-        [2, 3, 2, 2],   // Team 2 - Team 3 => 2:2
-        [1, 5, 1, 2],   // Team 1 - Team 5 => 1:2
-        [2, 0, 1, 1],   // Team 2 - Team 0 => 1:1
-        [3, 4, 3, 2],   // Team 3 - Team 4 => 3:2
-        [2, 5, 3, 1],   // Team 2 - Team 5 => 3:1
-        [3, 1, 0, 1],   // Team 3 - Team 1 => 0:1
-        [4, 0, 2, 1],   // Team 4 - Team 0 => 2:1
-        [3, 5, 0, 0],   // Team 3 - Team 5 => 0:0
-        [4, 2, 0, 1],   // Team 4 - Team 2 => 0:1
-        [0, 1, 1, 2],   // Team 0 - Team 1 => 1:2
-        [4, 5, 2, 0],   // Team 4 - Team 5 => 2:0
-        [0, 3, 3, 2],   // Team 0 - Team 3 => 3:2
-        [1, 2, 0, 0]
-    ];
+const games = [
+    [0, 1, 0, 2],
+    [0, 1, 1, 5],
 
-sportsLeague(6, games);
+    [0, 2, 1, 1],
+    [2, 1, 1, 0],
+    
+    [3, 0, 1, 0],
+    [3, 1, 3, 3],
+]
+
+sportsLeague(4, games);
