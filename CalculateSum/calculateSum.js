@@ -26,7 +26,7 @@ Test
 
   The output should be 46.
 
-Eg.: if the number is divisible by for return the result
+Eg.: if the number is divisible by k for return the result
 
 Steps
   loop from 1 to n
@@ -43,26 +43,17 @@ Steps
   9 = 9/4 = 9 because 9 is not divisible by 4
   10 10 /4 = 10 because 10 is not divisible by 4
 */
-
+  
 const calculateSum = (n, k) => {
   if (k < 1 || n < 0 || n === undefined || k === undefined) return null;
   let sum = 0;
   for (let i = 1; i <= n; i++) {
-    // check if number is divisible by k
-    const isNotDivisible = (i % k !== 0);
-    sum += isNotDivisible ? i : isDivisible(i, k);
+    let currNum = i; 
+    while (currNum % k === 0) {
+      currNum = currNum / k;
+    }
+    sum += currNum; 
   }
-  return BigInt(sum);
+  return sum;
 }
-
-const isDivisible = (num, k) => {
-  // keep dividing till num is not divisible by k anymore
-  while (num % k === 0) {
-    num = num / k;
-  }
-  return num;
-} 
-console.log(calculateSum(10, 4));
-  
-  
-    
+console.log(calculateSum(10, 4)); // 46
