@@ -22,10 +22,11 @@ const maximizeEarnings = (earnings, k) => {
     let consecutiveDays = 0;
 
     for (let i = 0; i < earnings.length; i++) {
-        sum += earnings[i];
-        consecutiveDays++;
-
-        if (consecutiveDays === k) {
+        if (consecutiveDays !== k) {
+            sum += earnings[i];
+            consecutiveDays += 1
+            // console.log(consecutiveDays)
+        } else {
             consecutiveDays = 0;
         }
     }
@@ -33,8 +34,15 @@ const maximizeEarnings = (earnings, k) => {
     return sum;
 }
 
-// console.log(maximizeEarnings([60, 70, 80, 40, 80, 90, 100, 20], 2)); // 480
-console.log(maximizeEarnings([45, 12, 78, 34, 56, 89, 23, 67, 91], 4)); // 460
-// console.log(maximizeEarnings([1, 2, 3, 4, 5], 5)); // 15
+// console.log(maximizeEarnings([60, 70, 80, 40, 80, 90, 100, 20], 3)); // 480
 
-// 45, 12, 78, 34, 89, 23, 67, 91 //
+// console.log(maximizeEarnings([45, 12, 78, 34, 56, 89, 23, 67, 91], 4)); // 460
+// console.log(maximizeEarnings([1, 2, 3, 4, 5], 5)); // 15
+// console.log(maximizeEarnings([10], 1)); // 10
+// console.log(maximizeEarnings([5, 10, 15], 30)); // 30
+// console.log(maximizeEarnings([], 2)); // 0
+console.log(maximizeEarnings([5, 3, 1, 8], 1)); // 13
+console.log(maximizeEarnings([1000, 2000, 3000, 4000, 5000], 3)); // 13000
+
+// 45, 12, 78, 34, // 169
+// 89, 23, 67, 91 // 270
