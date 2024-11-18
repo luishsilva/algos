@@ -21,8 +21,7 @@ const filterArray = (arr, callback) => {
     if (arr.length === 0) return [];
     if (typeof callback !== 'function') throw new Error('Second argument must be a function')
     
-    return arr.filter(callback)
-
+    return arr.filter(callback);
 }
 
 console.log(filterArray([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], (value) => value > 5)); // [ 6, 7, 8, 9, 10 ]
