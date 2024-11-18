@@ -18,29 +18,29 @@
 */
 
 const maximizeEarnings = (earnings, k) => {
-    let sum = 0;
-    let consecutiveDays = 0;
+    const earningsArrLength = earnings.length;
 
-    for (let i = 0; i < earnings.length; i++) {
-        if (consecutiveDays !== k) {
-            sum += earnings[i];
-            consecutiveDays += 1
-            // console.log(consecutiveDays)
-        } else {
-            consecutiveDays = 0;
+    const maxEarnings = new Array(earningsArrLength + 1).fill(0);
+    // console.log(maxEarnings)
+    for (let i = 1; i <= earningsArrLength; i++) {
+        maxEarnings[i] = maxEarnings[i - 1];
+        
+        let currentSum = 0;
+        for (let j = 1; j <= k && i - j >= 0; j++) {
+            currentSum += earnings[i -j];
+            
+            maxEarnings[i] = Math.max(maxEarnings[i], currentSum + (i - j >= 1 ? maxEarnings[i - j - 1] : 0));
         }
     }
+    return maxEarnings[earningsArrLength];
+}   
 
-    return sum;
-}
-
-// console.log(maximizeEarnings([60, 70, 80, 40, 80, 90, 100, 20], 3)); // 480
-
-// console.log(maximizeEarnings([45, 12, 78, 34, 56, 89, 23, 67, 91], 4)); // 460
-// console.log(maximizeEarnings([1, 2, 3, 4, 5], 5)); // 15
-// console.log(maximizeEarnings([10], 1)); // 10
-// console.log(maximizeEarnings([5, 10, 15], 30)); // 30
-// console.log(maximizeEarnings([], 2)); // 0
+console.log(maximizeEarnings([60, 70, 80, 40, 80, 90, 100, 20], 3)); // 480
+console.log(maximizeEarnings([45, 12, 78, 34, 56, 89, 23, 67, 91], 4)); // 460
+console.log(maximizeEarnings([1, 2, 3, 4, 5], 5)); // 15
+console.log(maximizeEarnings([10], 1)); // 10
+console.log(maximizeEarnings([5, 10, 15], 30)); // 30
+console.log(maximizeEarnings([], 2)); // 0
 console.log(maximizeEarnings([5, 3, 1, 8], 1)); // 13
 console.log(maximizeEarnings([1000, 2000, 3000, 4000, 5000], 3)); // 13000
 
