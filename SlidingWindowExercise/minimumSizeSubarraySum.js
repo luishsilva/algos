@@ -22,24 +22,24 @@ const minSubarrayLen = (arrNums, target) => {
     let subArrayLength = 0;
 
     for (let i = 0; i < arrNums.length; i++) {
-        prevTotal =+ arrNums[i];
+        prevTotal += arrNums[i];
         subArrayLength++;
 
         if (prevTotal >= target) break;
+    }
 
-        if (prevTotal < target) return 0;
+    if (prevTotal < target) return 0;
 
-        for (let i = 1; i < arrNums.length; i++) {
-            const currentTotal = prevTotal - nums[i-1];
-            if (currentTotal >= target) {
-                subArrayLength--;
-                prevTotal = currentTotal;
-            } else {
-                prevTotal = currentTotal + nums[i + subArrayLength - 1];
-            }
+    for (let i = 1; i < arrNums.length; i++) {
+        const currentTotal = prevTotal - arrNums[i - 1];
+        if (currentTotal >= target) {
+            subArrayLength--;
+            prevTotal = currentTotal;
+        } else {
+            prevTotal = currentTotal + arrNums[i + subArrayLength - 1];
         }
     }
-    return true;
+    return subArrayLength;
 }
 
 console.log(minSubarrayLen([2, 3, 1, 2, 4, 3], 7));
