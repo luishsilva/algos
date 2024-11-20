@@ -6,7 +6,7 @@ Input: S = "abcabcbb"
 Output: Longest substring length = 3 ("abc") 
 */
 
-const lengthOfLongestSubstring = (str) => {
+/* const lengthOfLongestSubstring = (str) => {
     let charSet = new Set();
     let left = 0;
     let maxLength = 0;
@@ -26,7 +26,29 @@ const lengthOfLongestSubstring = (str) => {
         maxLength = Math.max(maxLength, right - left + 1);
     }
     return maxLength;
+} */
+const lengthOfLongestSubstring = (str) => { 
+    let longestStr = 0;
+    let set = new Set();
+
+    let left = 0;
+    let right = 0;
+
+    while (right < str.length) {
+        let letter = str[right];
+        
+        if (!set.has(letter)) {
+            set.add(letter);
+            longestStr = Math.max(longestStr, set.size);
+            right++;
+        } else {
+            set.delete(str[left]);
+            left++;
+        }
+    }
+    return longestStr;
 }
+
 console.log(lengthOfLongestSubstring('abcabcbb')); // 3
 console.log(lengthOfLongestSubstring('aaeeiioouu')); // 2
 console.log(lengthOfLongestSubstring('aeiou')); // 5
