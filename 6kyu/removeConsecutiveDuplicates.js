@@ -14,20 +14,17 @@ Good luck!
 If you like this Kata, please try: 
  */
 
-const dup =  (s) => {
-    let finalArray = [];
-    for (i = 0; i < s.length; i++) {
-        let word = s[i];
-        let finalWord = '';
-        for (j = 0; j < word.length; j++) {
-            if (s[i][j] !== s[i][j + 1]) {
-                finalWord += s[i][j];
+const dup =  (arr) => {
+    return arr.map(word => {
+        let newStr = '';
+        for (let i = 0; i < word.length; i++) {
+            if (newStr === '' || word[i] !== newStr[newStr.length - 1]) {
+                newStr += word[i];
             }
-            
         }
-        finalArray.push(finalWord);
-    }
-    return finalArray;
+        return newStr;
+    });
 };
 
-console.log(dup(["abracadabra","allottee","assessee"])); // = ["abracadabra","alote","asese"]
+console.log(dup(["abracadabra","allottee","assessee"])); // ["abracadabra","alote","asese"]
+// console.log(dup(["kelless","keenness"])); // ["keles","kenes"]
