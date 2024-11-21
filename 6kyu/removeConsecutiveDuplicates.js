@@ -14,18 +14,18 @@ Good luck!
 If you like this Kata, please try: 
  */
 
-const dup =  (str) => {
+const dup =  (s) => {
     let finalArray = [];
-    for (i = 0; i < str.length; i++) {
-        let word = str[i];
-        let verifiedWord = '';
+    for (i = 0; i < s.length; i++) {
+        let word = s[i];
+        let finalWord = '';
         for (j = 0; j < word.length; j++) {
-            if (str[i][j] !== str[i][j + 1]) {
-                verifiedWord += str[i][j];
+            if (s[i][j] !== s[i][j + 1]) {
+                finalWord += s[i][j];
             }
             
         }
-        finalArray.push(verifiedWord);
+        finalArray.push(finalWord);
     }
     return finalArray;
 };
