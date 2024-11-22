@@ -20,26 +20,18 @@ Edge case
  */
 
 const solve = (str) => {
+
+    if (typeof str !== 'string' || /[^a-zA-Z]/.test(str)) 
+        throw new Error("Input must be a string of alphabetic characters only.");
+
     let totalLowerChars = 0;
     let totalUpperChars = 0;
 
-    for (let i = 0; i < str.length; i++) {
-        let strToLowerCase = str[i].toLowerCase();
-        
-        if (str[i] === strToLowerCase) {
-            totalLowerChars += 1;
-        } else {
-            totalUpperChars += 1;
-        }
+    for (const char of str) {
+        char === char.toLowerCase() ? totalLowerChars++ : totalUpperChars++
     }
-    
-    if (totalLowerChars > totalUpperChars) {
-        return str.toLowerCase();
-    } else if ( totalUpperChars > totalLowerChars) {
-        return str.toUpperCase();
-    } else {
-        return str.toLowerCase();
-    }
+
+    return totalLowerChars >= totalUpperChars ? str.toLowerCase() : str.toUpperCase();
 }
 
 console.log(solve('coDe')); // code
