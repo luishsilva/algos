@@ -22,11 +22,11 @@ Array.prototype.cube = function() {
 }
 
 Array.prototype.average = function() {
-    return this.length === 0 ? 0 : this.reduce((curr, val) => curr + val, 0) / this.length;
+    return this.length === 0 ? NaN : this.reduce((curr, val) => curr + val, 0) / this.length;
 }
 
 Array.prototype.sum = function() {
-    return this.reduce((curr, val) => curr + val, 0);
+    return this.isEmpty ? NaN : this.reduce((curr, val) => curr + val, 0);
 }
 
 Array.prototype.even = function() {
