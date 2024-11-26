@@ -21,7 +21,6 @@ const maximizeEarnings = (earnings, k) => {
     const earningsArrLength = earnings.length;
 
     const maxEarnings = new Array(earningsArrLength + 1).fill(0);
-    // console.log(maxEarnings)
     for (let i = 1; i <= earningsArrLength; i++) {
         maxEarnings[i] = maxEarnings[i - 1];
         
