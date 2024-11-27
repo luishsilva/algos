@@ -39,31 +39,39 @@ Questions
     What is the calculation needed to get the result?
  */
 
-const findMinCost = (money, days, cost) => {
-    if (days === 1) {
-        // get the lower rental price
-        let totalCost = cost[0];
-        for (const value of cost) {
-            if (value < totalCost) {
-                totalCost = value;
+const findMinCost = (money, days, costs) => {
+    let affordableCost = Infinity;
+    let affordableDays = 0;
+    let currentSum = 0;
+
+    for (let i = 0; i < costs.length; i++) {
+        currentSum += costs[i];
+
+        if (i >= days - 1) {
+            if (currentSum <= money) {
+                affordableCost = Math.min(affordableCost, currentSum);
             }
+            currentSum -= costs[i - (days - 1)];
         }
-        // return totalCost;
-        return [...cost].sort((a, b) => a - b).slice(0,1);
-    } else {
-
     }
-    /* if (days === cost.length) {
-        const totalCost = cost.reduce((currValue, value) => currValue + value, 0);
-        console.log(totalCost)
-    } */
-        
-    return ``;
-}  
 
-const money = 10;
-const days = 1;
-const costs = [5];
+    if (affordableCost !== Infinity) {
+        return `money: ${affordableCost}`;
+    }
 
-// findMinCost(10, 1, [5]); // money: 5
-console.log(findMinCost(50, 3, [10, 40, 5])); // money: 5
+    currentSum = 0;
+    for (let i = 0; i < costs.length; i++) {
+        currentSum += costs[i];
+        if (currentSum > money) break;
+        affordableDays = i + 1;
+    }
+
+    return `days: ${affordableDays}`;
+}
+
+console.log(findMinCost(10, 1, [5])); // "money: 5"
+console.log(findMinCost(10, 1, [3, 2, 4])); // "money: 2"
+console.log(findMinCost(10, 2, [3, 7, 6])); // "money: 10"
+console.log(findMinCost(10, 1, [20, 15, 30])); // "days: 0"
+console.log(findMinCost(10, 2, [9, 6, 7, 4])); // "days: 1"
+console.log(findMinCost(50, 3, [10, 40, 5])); // "days: 2
