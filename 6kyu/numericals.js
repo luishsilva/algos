@@ -27,7 +27,7 @@ const numericals = (s) => {
         }
         
     }
-    console.log(numerical)
+    return numerical;
 }
 
 numericals("Hello, World!"); //1112111121311
