@@ -31,15 +31,10 @@ const replaceVowelOrConsonant = (str) => {
     const regex = /[^a-zA-Z]/g;
     const lettersOnly = str.replaceAll(regex, '').toLocaleLowerCase();
 
-    const vowels = 'aeiou';
+    const vowels = new Set(['a', 'e', 'i', 'o', 'u']);
 
     // 4 - Loop over the string and identify if it's character is a vowel or consonant and replace for the specific symbols
-    let newString = '';
-    for ( const char of lettersOnly) {
-        newString += vowels.indexOf(char) >= 0 ? '*' : "#";
-    }
-
-    return newString;
+    return [...lettersOnly].map((char => vowels.has(char) ? '*' : '#')).join('');
 }
 
 console.log(replaceVowelOrConsonant('#Canada 2024')); // #*#*#*
