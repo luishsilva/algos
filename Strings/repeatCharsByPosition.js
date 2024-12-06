@@ -14,6 +14,7 @@
 
     Test
         abc = abbccc
+        repeat = reepppeeeeaaaaatttttt
 
     Edge cases
         test if argument is a string
@@ -22,18 +23,17 @@
 
 // 1 - create the function
 const repeatCharsByPosition = (str) => {
-    let charPosition = {}
+    let newString = '';
 
     // test if argument is a string, test if argument is not a string
     if (typeof str !== 'string' || str.length === 0) return null;
     
     // 2 - loop over the string to identify the string position value
     for (let i = 0; i < str.length; i++) {
-        // console.log(str[i])
-        charPosition[str[i]] = i + 1;
+        newString += str[i].repeat(i+1);
     }
-
-    const result = Object.entries(charPosition).map((key, value) => console.log(key, value))
+    return newString;
 }
 
-repeatCharsByPosition('abc'); // abbccc
+console.log(repeatCharsByPosition('abc')); // abbccc
+console.log(repeatCharsByPosition('repeat')); // reepppeeeeaaaaatttttt
