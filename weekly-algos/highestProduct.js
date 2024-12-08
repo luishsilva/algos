@@ -24,16 +24,21 @@
 */
 
 const highestProduct = (arr) => {
-    let highestProduct = 0;
+    if (arr.length < 2) return null;
+
+    let highestProduct = -Infinity;
 
     for (let i = 0; i < arr.length; i++) {
-        const sum = arr[i] * arr[i + 1];
-        if (highestProduct < sum) {
-            highestProduct = sum;
+        for (let j = i + 1; j < arr.length; j++) {
+            const product = arr[i] * arr[j];
+            if (product > highestProduct) {
+                highestProduct = product;
+            }
         }
     }
     return highestProduct;
 }
 
-highestProduct([1, 2, 3, 4]); // 12
-highestProduct([2, 5, 8, 3]); // 12
+console.log(highestProduct([1, 2, 3, 4])); // 12
+console.log(highestProduct([2, 5, 8, 3])); // 40
+console.log(highestProduct([-10, -3, 1, 2])); // 30
