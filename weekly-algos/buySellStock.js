@@ -23,24 +23,24 @@
 
 // 1 - Create the function that accept a array as argument
 const buySellStock = (arr) => {
-    if (typeof arr !== 'array' || arr.length ===0) return null
+    if (!Array.isArray(arr)) return null
 
-    let buy = 0;
+    let buy = arr[0];
     let sell = 0;
 
     // 2 - Identify in the array which day is the best day to buy and sell the stock
-    for (let i = 0; i < arr.length; i++ ) {
-        if (buy === 0 || arr[i] < buy) {
+    for (let i = 1; i < arr.length; i++ ) {
+        if (arr[i] < buy) {
             buy = arr[i];
-        } else if (buy > 0 && arr[i] > sell) {
+        } else if (arr[i] > sell) {
             sell = arr[i];
         }
     }
     // 3 - Calculate the profit which is Sell - buy
-    // return sell - buy;
-    console.log(sell, buy);
+    return sell === 0 ? 0 : sell - buy;
 }
 
 console.log(buySellStock([7, 1, 5, 3, 6, 4])); // best day to buy is day = 2 price = 1 and best day to sell is day 5 = 6  profit 5
 console.log(buySellStock([1, 5, 3, 9, 4])); // best day to buy is day = 1 price = 1 and best day to sell is day 4 = 9  profit 8
+console.log(buySellStock([10, 5, 3, 2, 1])); // best day to buy is day = 1 price = 1 and best day to sell is day 0 = 0  profit 0
 
