@@ -28,7 +28,6 @@ const buySellStock = (arr) => {
     let buy = arr[0];
     let sell = 0;
 
-    // 2 - Identify in the array which day is the best day to buy and sell the stock
     for (let i = 1; i < arr.length; i++ ) {
         if (arr[i] < buy) {
             buy = arr[i];
@@ -36,7 +35,7 @@ const buySellStock = (arr) => {
             sell = arr[i];
         }
     }
-    // 3 - Calculate the profit which is Sell - buy
+
     return sell === 0 ? 0 : sell - buy;
 }
 
