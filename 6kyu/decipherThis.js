@@ -41,23 +41,30 @@ decipherThis = (str) => {
         return String.fromCharCode(code).concat(onlyString);;
     });
 
-    console.log(words)
 
-    // 3 - Discover which character each number represents
-    /* let characterCode = '';
-    let letter = '';
-    for (let i = 0; i < word.length; i++) {
-        const isNumber = /\d/.test(word[i]);
-        if (isNumber) {
-            characterCode += word[i];
-        } else {
-            // console.log(i)
-            letter = String.fromCharCode(characterCode);
-            console.log(letter)
-            break;
+    // 4 - Switch the second letter of each word with the last letter
+    let result = [];
+    for (let i = 0; i < words.length; i++) {
+        let newWord = '';
+        let word = words[i];
+        wordSecondLetter = words[i][1];
+        const wordLastLetter = word[words[i].length-1];
+
+        for (let j = 0; j < word.length; j++) {
+            if (j === 1) {
+                newWord += wordLastLetter;
+            } else if(j === words[i].length-1) {
+                newWord += wordSecondLetter;
+            }
+            else {
+                newWord += word[j];
+            }
         }
-    } */
+        result.push(newWord);
+    }
+    return result.join(' ');
     
 }
 
-decipherThis('72olle 103doo 100ya'); // 'Hello good day'
+console.log(decipherThis('72olle 103doo 100ya')); // Hello good day
+console.log(decipherThis('82yade 115te 103o')); // Ready set go'
