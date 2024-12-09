@@ -29,37 +29,38 @@ Examples
 '82yade 115te 103o'   --> 'Ready set go'
  */
 
-// 1 - Create the function with a string as argument
 decipherThis = (str) => {
-    // 2 - Loop over each word that will be deciphered (Obs.: The numbers at the beginning of each world is the character code for a letter)
+    if (typeof str !== 'string' || str.trim().length === 0) return null;
+
     const words = str
     .split(' ')
     .map((word) => {
-        // 3 - Discover which character each number represents
         let code = word.replace(/[^0-9]/g, "");
         let onlyString = word.replace(/[^a-z]/gi, "");
         return String.fromCharCode(code).concat(onlyString);;
     });
 
-
-    // 4 - Switch the second letter of each word with the last letter
     let result = [];
     for (let i = 0; i < words.length; i++) {
         let newWord = '';
-        let word = words[i];
-        wordSecondLetter = words[i][1];
-        const wordLastLetter = word[words[i].length-1];
+        
+        const word = words[i];
+        const secondLetter = words[i][1];
+        const lastLetter = word[words[i].length-1];
+
+        const wordLength = word.length;
 
         for (let j = 0; j < word.length; j++) {
             if (j === 1) {
-                newWord += wordLastLetter;
+                newWord += lastLetter;
             } else if(j === words[i].length-1) {
-                newWord += wordSecondLetter;
+                newWord += wordLength > 1 ? secondLetter : lastLetter;
             }
             else {
                 newWord += word[j];
             }
         }
+
         result.push(newWord);
     }
     return result.join(' ');
@@ -67,4 +68,7 @@ decipherThis = (str) => {
 }
 
 console.log(decipherThis('72olle 103doo 100ya')); // Hello good day
-console.log(decipherThis('82yade 115te 103o')); // Ready set go'
+console.log(decipherThis('82yade 115te 103o')); // Ready set go
+console.log(decipherThis('72eva 97 103o 97t 116sih 97dn 115ee 104wo 121uo 100o')); // Have a go at this and see how you do
+console.log(decipherThis('97')); // a
+console.log(decipherThis(' ')); // null
