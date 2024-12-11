@@ -32,39 +32,28 @@ Examples
 decipherThis = (str) => {
     if (typeof str !== 'string' || str.trim().length === 0) return null;
 
-    const words = str
-    .split(' ')
-    .map((word) => {
-        let code = word.replace(/[^0-9]/g, "");
-        let onlyString = word.replace(/[^a-z]/gi, "");
-        return String.fromCharCode(code).concat(onlyString);;
-    });
+    return str
+        .split(' ')
+        .map((word) => {
+            const match = word.match(/^(\d+)([a-zA-Z]*)$/);
+            if (!match) return word;
+            
+            const charCode = parseInt(match[1], 10);
+            const letters = match[2];
+            
+            const firstChar = String.fromCharCode(charCode);
+            const second = letters[0];
 
-    let result = [];
-    for (let i = 0; i < words.length; i++) {
-        let newWord = '';
-        
-        const word = words[i];
-        const secondLetter = words[i][1];
-        const lastLetter = word[words[i].length-1];
-
-        const wordLength = word.length;
-
-        for (let j = 0; j < word.length; j++) {
-            if (j === 1) {
-                newWord += lastLetter;
-            } else if(j === words[i].length-1) {
-                newWord += wordLength > 1 ? secondLetter : lastLetter;
+            if (letters.length < 2) {
+                return firstChar + letters;
             }
-            else {
-                newWord += word[j];
-            }
-        }
 
-        result.push(newWord);
-    }
-    return result.join(' ');
-    
+            const last = letters[letters.length - 1];
+            const middle = letters.slice(1, -1);
+            
+            return firstChar + last + middle + second;
+        })
+        .join(' ')
 }
 
 console.log(decipherThis('72olle 103doo 100ya')); // Hello good day
