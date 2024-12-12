@@ -34,18 +34,25 @@
 function removeParentheses(s){
     if (typeof s !== 'string' || s.trim().length === 0) return null;
 
-    // 2 - Search in the string for the parentheses
-    let firstParenthesesIndex = s.indexOf('(');
-    let lastParenthesesIndex = s.lastIndexOf(')') + 1;
+    let result = '';
+    let parentheses = 0;
 
-    const unwantedPortion = s.substring(firstParenthesesIndex, lastParenthesesIndex);
-
-    // 3 - Remove the parentheses and the strings in between the parentheses
-    return s.replace(unwantedPortion, '');
+    for (let char of s) {
+        if (char === '(') {
+            parentheses++;
+        } else if (char === ')') {
+            if (parentheses > 0) parentheses--;
+        } else if (parentheses === 0) {
+            result += char;
+        }
+    }
+    console.log(result)
+    
 }
 
-// removeParentheses('example(unwanted thing)example'); // exampleexample
-// removeParentheses('example (unwanted thing) example'); // example  example
-// removeParentheses('a (bc d)e"), "a e"'); // a, "a e"
-// removeParentheses('hello example (words(more words) here) something'); // hello example  something
+console.log(removeParentheses('example(unwanted thing)example')); // exampleexample
+console.log(removeParentheses('example (unwanted thing) example')); // example  example
+console.log(removeParentheses('a (bc d)e"), "a e"')); // a, "a e"
+console.log(removeParentheses('hello example (words(more words) here) something')); // hello example  something
+console.log(removeParentheses('You will (never) give up (, you need to promise)')); // " You will give up "
 console.log(removeParentheses('(first group) (second group) (third group)')); // "  "
