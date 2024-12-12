@@ -30,7 +30,6 @@
         4 - Return the new string sanitized.
 */
 
-// 1 - Create a method that receives a string as argument
 function removeParentheses(s){
     if (typeof s !== 'string' || s.trim().length === 0) return null;
 
@@ -46,7 +45,7 @@ function removeParentheses(s){
             result += char;
         }
     }
-    console.log(result)
+    return result;
     
 }
 
