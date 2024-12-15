@@ -34,18 +34,14 @@ const longestCommonPrefix = (arr) => {
 
     let longestPrefix = arr[0];
 
-    let result = '';
-
     for (let i = 1; i < arr.length; i++) {
-        for (let j = 0; j < arr[i].length; j++) {
-            if (longestPrefix[j] !== arr[i][j]) {
-                result = longestPrefix.substring(0, j);
-                break;
-            }
+        while (arr[i].indexOf(longestPrefix) !== 0) {
+            longestPrefix = longestPrefix.slice(0, -1);
+            if (longestPrefix === '') return '';
         }
     }
 
-    return result;
+    return longestPrefix;
 }
 
 console.log(longestCommonPrefix(["flower", "flow", "flight"])); // fl
