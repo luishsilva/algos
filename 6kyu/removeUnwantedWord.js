@@ -29,6 +29,9 @@
 */
 
 const unwantedWords = (str, arr) => {
+
+    if(typeof str !== 'string' || str.length === 0 || !Array.isArray(arr)) return '';
+
     const result = str
         .split(' ')
         .filter(word => !arr.includes(word))
