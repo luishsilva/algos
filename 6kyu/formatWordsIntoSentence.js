@@ -34,7 +34,7 @@ Steps:
  */ 
 
 const formatWordSentence = (words) => {
-    if (words === null || words.length === 0 || !Array.isArray(words)) return '';
+    if (!Array.isArray(words) || words.length === 0) return '';
 
     let filteredWords = words.filter(element => element);
     const arrLength = filteredWords.length;
