@@ -22,39 +22,42 @@ Edge Cases:
 
 Questions?
     Will the array always contain strings only?
+    Should the array contain only strings?
 
 
 Steps:
-    1 - Loop over the array of strings
-    2 - Identify if the element is not a empty string
-    3 - Return the sentence
+    1 - Return null if argument is not array, null or empty
+    2 - Filter array to remove falsy values like false, 0, "", null, undefined, NaN
+    2 - Loop over the filtered array of strings
+    3 - Identify if comma or and will be added as separator
+    4 - Return the correct sentence
  */ 
 
 const formatWordSentence = (words) => {
+    if (words === null || words.length === 0 || !Array.isArray(words)) return '';
+
+    let filteredWords = words.filter(element => element);
+    const arrLength = filteredWords.length;
+
     let sentence = '';
-    const arrLength = words.length;
-    
-    sentence = words[0].length !== 0 ? words[0] : '';
-    for (let i = 1; i < arrLength; i++) {
-        if (words[i].length !== 0) {
-            console.log(words[i].length)
-            let separator = ' ';
-            if ((i !== arrLength - 1)) {
-                separator = ', ';
-            } else {
-                separator = ' and ';
-            }
-
-            sentence += separator+words[i];
-        }
+    const lastSeparator = arrLength - 1;
+    for (let i = 0; i < arrLength; i++) { 
+        sentence += filteredWords[i];
+        const nextIndex = i + 1;
+        if (lastSeparator === nextIndex) {
+            sentence += ' and ';
+            
+        } else if (nextIndex < arrLength) {
+            sentence += ', ';
+        }        
     }
-
     return sentence;
 }
 
-// console.log(formatWordSentence(['ninja', 'samurai', 'ronin']));
-console.log(formatWordSentence(['', '', 'three']));
-
-/* i = 0 (ninja)
-i + 1 = 1 (samurai)
-i + 2 = 2 (ronin) */
+console.log(formatWordSentence(['one', 'two', 'three', 'four'])); // one two three and four
+console.log(formatWordSentence(['ninja', 'samurai', 'ronin'])); // ninja, samurai and ronin
+console.log(formatWordSentence(['', '', 'three'])); // three
+console.log(formatWordSentence(['one', '', 'three'])); // one and three
+console.log(formatWordSentence(null)); // ''
+console.log(formatWordSentence([''])); // ''
+console.log(formatWordSentence('string')); // ''

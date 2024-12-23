@@ -24,14 +24,11 @@
 // 1 - create the function
 const majorityElement = (arr) => {
 
-    // function argument need to be array
     if (!Array.isArray(arr) || arr.length === 0) return null
 
-    // 2 - identify the n/2 of the array
     let halfArrayLength = arr.length / 2;
     let majority = {};
 
-    // 3 - identify the number that is the majority
     for (let i = 0; i < arr.length; i++) {
         majority[arr[i]] = (majority[arr[i]] || 0) + 1;
     }
