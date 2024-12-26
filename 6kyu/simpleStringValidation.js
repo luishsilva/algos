@@ -22,7 +22,7 @@ The only slight challenge is to produce a simple method that has no regular expr
 no block nesting with things like 'map' or 'each'; obviously I have no way of enforcing this! 
 
 Input: string
-Output: string + 1
+Output: number + 1
 
 Steps:
     Loop over the string identify  a valid string
@@ -36,24 +36,23 @@ Edge Cases
 
 const simpleStringValidation = (str) => {
 
-    if (str === ' ') return 1;
+    const trimmed = str.trim();
 
-    let validNumber = 0;
-    let foundNumber = false;
-    let invalid = '';
+    if(trimmed === '') return 1;
 
-    for (let i = 0; i< str.length; i++) {
-        if(Number.parseInt(str[i]) && invalid !== 'invalid'){
-            validNumber += str[i];
-            foundNumber = true;
-        } else if (foundNumber){
-            if (!Number.parseInt(str[i + 1] === ' ' && foundNumber)) {
-                invalid = 'invalid';
-                console.log(invalid)
-            }
+    let result = 0;
+    for (const char of trimmed) {
+        if (char >= '0' && char <= '9') {
+            result = Number(trimmed) + 1;
+        } else {
+            return 'invalid';
         }
     }
-    console.log(validNumber);
+
+    return result;
+
 }
 
-simpleStringValidation('   7 7   ');
+console.log(simpleStringValidation(' 2 9  ')); // invalid 
+console.log(simpleStringValidation(' 25 ')); // 26 
+console.log(simpleStringValidation(' ')); // 1
