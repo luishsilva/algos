@@ -17,21 +17,21 @@
 */
 
 var validWord = (dictionary, word) => {
-    const dp = Array(word.length + 1).fill(false);
-    dp[0] = true;
+  const dp = Array(word.length + 1).fill(false);
+  dp[0] = true;
 
-    for (let i = 1; i <= word.length; i++) {
-        for (const element of dictionary) {
-            const elemLength = element.length;
-            if (i >= elemLength && word.slice(i - elemLength, i) === element) {
-                dp[i] = dp[i] || dp[i - elemLength];
-            }
-        }
+  for (let i = 1; i <= word.length; i++) {
+    for (const element of dictionary) {
+      const elemLength = element.length;
+      if (i >= elemLength && word.slice(i - elemLength, i) === element) {
+        dp[i] = dp[i] || dp[i - elemLength];
+      }
     }
-    return dp[word.length];
+  }
+  return dp[word.length];
 };
 
-console.log(validWord(["code", "wars"], 'codewars')); // true
+console.log(validWord(["code", "wars"], "codewars")); // true
 // console.log(validWord(["code", "wars"], 'codewar')); // false
 // console.log(validWord(["wars", "code"], 'codewars')); // true
 // console.log(validWord(["wars", "code"], 'codecodewars')); // true

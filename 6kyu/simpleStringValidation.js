@@ -35,24 +35,22 @@ Edge Cases
 */
 
 const simpleStringValidation = (str) => {
+  const trimmed = str.trim();
 
-    const trimmed = str.trim();
+  if (trimmed === "") return 1;
 
-    if(trimmed === '') return 1;
-
-    let result = 0;
-    for (const char of trimmed) {
-        if (char >= '0' && char <= '9') {
-            result = Number(trimmed) + 1;
-        } else {
-            return 'invalid';
-        }
+  let result = 0;
+  for (const char of trimmed) {
+    if (char >= "0" && char <= "9") {
+      result = Number(trimmed) + 1;
+    } else {
+      return "invalid";
     }
+  }
 
-    return result;
+  return result;
+};
 
-}
-
-console.log(simpleStringValidation(' 2 9  ')); // invalid 
-console.log(simpleStringValidation(' 25 ')); // 26 
-console.log(simpleStringValidation(' ')); // 1
+console.log(simpleStringValidation(" 2 9  ")); // invalid
+console.log(simpleStringValidation(" 25 ")); // 26
+console.log(simpleStringValidation(" ")); // 1
