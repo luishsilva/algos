@@ -31,33 +31,32 @@ Steps:
     2 - Loop over the filtered array of strings
     3 - Identify if comma or and will be added as separator
     4 - Return the correct sentence
- */ 
+ */
 
 const formatWordSentence = (words) => {
-    if (!Array.isArray(words) || words.length === 0) return '';
+  if (!Array.isArray(words) || words.length === 0) return "";
 
-    let filteredWords = words.filter(element => element);
-    const arrLength = filteredWords.length;
+  let filteredWords = words.filter((element) => element);
+  const arrLength = filteredWords.length;
 
-    let sentence = '';
-    const lastSeparator = arrLength - 1;
-    for (let i = 0; i < arrLength; i++) { 
-        sentence += filteredWords[i];
-        const nextIndex = i + 1;
-        if (lastSeparator === nextIndex) {
-            sentence += ' and ';
-            
-        } else if (nextIndex < arrLength) {
-            sentence += ', ';
-        }        
+  let sentence = "";
+  const lastSeparator = arrLength - 1;
+  for (let i = 0; i < arrLength; i++) {
+    sentence += filteredWords[i];
+    const nextIndex = i + 1;
+    if (lastSeparator === nextIndex) {
+      sentence += " and ";
+    } else if (nextIndex < arrLength) {
+      sentence += ", ";
     }
-    return sentence;
-}
+  }
+  return sentence;
+};
 
-console.log(formatWordSentence(['one', 'two', 'three', 'four'])); // one two three and four
-console.log(formatWordSentence(['ninja', 'samurai', 'ronin'])); // ninja, samurai and ronin
-console.log(formatWordSentence(['', '', 'three'])); // three
-console.log(formatWordSentence(['one', '', 'three'])); // one and three
+console.log(formatWordSentence(["one", "two", "three", "four"])); // one two three and four
+console.log(formatWordSentence(["ninja", "samurai", "ronin"])); // ninja, samurai and ronin
+console.log(formatWordSentence(["", "", "three"])); // three
+console.log(formatWordSentence(["one", "", "three"])); // one and three
 console.log(formatWordSentence(null)); // ''
-console.log(formatWordSentence([''])); // ''
-console.log(formatWordSentence('string')); // ''
+console.log(formatWordSentence([""])); // ''
+console.log(formatWordSentence("string")); // ''
