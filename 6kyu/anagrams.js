@@ -18,6 +18,11 @@
         "abt": ["bat"]
     }
 
+    Edge Cases
+        Method argument should be an array
+        Empty array should return empty string
+        Array containing only one word return the array
+
     Steps:
         1 - loop over the array
         2 - order each word alphabetically 
@@ -29,16 +34,19 @@
 const anagram = (arr) => {
   let obj = {};
 
+  if (!Array.isArray(arr)) return null;
+
   for (const word of arr) {
     const key = word.split("").sort().join("");
 
-    if (obj.hasOwnProperty(key)) {
-      obj[key].push(word);
-    } else {
-      obj[key] = [word];
+    if (!obj[key]) {
+      obj[key] = [];
     }
+    obj[key].push(word);
   }
   return obj;
 };
 
 console.log(anagram(["eat", "tea", "tan", "ate", "nat", "bat"]));
+console.log(anagram(["let"]));
+console.log(anagram([]));
